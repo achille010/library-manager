@@ -1,3 +1,5 @@
+*.sql linguist-detectable=true
+
 ALTER TABLE members
 ADD COLUMN email VARCHAR(100);
 

@@ -1,3 +1,5 @@
+*.sql linguist-detectable=true
+
 USE library;
 
 INSERT INTO books (book_id, title, published_year) VALUES
