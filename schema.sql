@@ -33,3 +33,17 @@ CREATE TABLE loans (
   CONSTRAINT fk_loans_book
     FOREIGN KEY (book_id) REFERENCES books(book_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS authors;
+
+CREATE TABLE authors(
+    author_id INT AUTO_INCREMENT PRIMARY KEY;
+    auth_name VARCHAR(200);
+)
+
+INSERT INTO authors(auth_name) VALUES (
+    ('ISHYA Example'),
+    ('RUGEMA Example'),
+    ('Achille Example'),
+    ('Viktor Gyokeres')
+)
