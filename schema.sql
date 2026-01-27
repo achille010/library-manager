@@ -10,6 +10,20 @@ CREATE TABLE books (
   PRIMARY KEY (book_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS authors;
+
+CREATE TABLE authors(
+    author_id INT AUTO_INCREMENT PRIMARY KEY;
+    auth_name VARCHAR(200);
+)
+
+INSERT INTO authors(auth_name) VALUES (
+    ('ISHYA Example'),
+    ('RUGEMA Example'),
+    ('Achille Example'),
+    ('Viktor Gyokeres')
+);
+
 DROP TABLE IF EXISTS members;
 
 CREATE TABLE members (
@@ -34,16 +48,13 @@ CREATE TABLE loans (
     FOREIGN KEY (book_id) REFERENCES books(book_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS authors;
+ALTER TABLE loans
+ADD COLUMN ret_status VARCHAR(20) DEFAULT 'borrowed';
 
-CREATE TABLE authors(
-    author_id INT AUTO_INCREMENT PRIMARY KEY;
-    auth_name VARCHAR(200);
-)
+UPDATE loans
+SET ret_status = 'return'
+WHERE return_date IS NOT NULL;
 
-INSERT INTO authors(auth_name) VALUES (
-    ('ISHYA Example'),
-    ('RUGEMA Example'),
-    ('Achille Example'),
-    ('Viktor Gyokeres')
-)
+UPDATE loans
+SET ret_status = 'borrowed'
+WHERE return_date IS NULL;
