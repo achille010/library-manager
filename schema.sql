@@ -1,0 +1,35 @@
+CREATE DATABASE IF NOT EXISTS library;
+USE library;
+
+DROP TABLE IF EXISTS books;
+
+CREATE TABLE books (
+  book_id INT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(150) NOT NULL,
+  published_year INT DEFAULT NULL,
+  PRIMARY KEY (book_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS members;
+
+CREATE TABLE members (
+  member_id INT NOT NULL AUTO_INCREMENT,
+  full_name VARCHAR(100) NOT NULL,
+  join_date DATE NOT NULL,
+  PRIMARY KEY (member_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS loans;
+
+CREATE TABLE loans (
+  loan_id INT NOT NULL AUTO_INCREMENT,
+  member_id INT NOT NULL,
+  book_id INT NOT NULL,
+  loan_date DATE NOT NULL,
+  return_date DATE DEFAULT NULL,
+  PRIMARY KEY (loan_id),
+  CONSTRAINT fk_loans_member
+    FOREIGN KEY (member_id) REFERENCES members(member_id),
+  CONSTRAINT fk_loans_book
+    FOREIGN KEY (book_id) REFERENCES books(book_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
