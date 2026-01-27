@@ -7,3 +7,5 @@ UPDATE members SET email = 'claire@example.com' WHERE member_id = 3;
 UPDATE members SET email = 'david@example.com' WHERE member_id = 4;
 UPDATE members SET email = 'eva@example.com' WHERE member_id = 5;
 
+ALTER TABLE books
+MODIFY title VARCHAR(100) NOT NULL;
