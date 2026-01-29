@@ -158,6 +158,6 @@ Built as a practical demonstration of database design principles and SQL fundame
 
 <div align="center">
 
-Made with ❤️ using MySQL
+Made with </> using MySQL
 
 </div>
