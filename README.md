@@ -1,20 +1,40 @@
-# Library Database
+<div align="center">
 
-A simple library management database built in MySQL for tracking members, books, and loan transactions.
+<img src="https://skillicons.dev/icons?i=mysql&theme=dark" alt="MySQL" width="100">
 
-## 📋 Overview
+# Library Manager
 
-This repository contains a single SQL dump file (`lib.sql`) that creates a complete library management system with sample data. It's designed to be easy to import and demonstrates fundamental database design principles including foreign key relationships and referential integrity.
+A simple library management database built in MySQL for tracking members, books, and loan transactions
 
-## 🗂️ Database Structure
+[![Stars](https://img.shields.io/github/stars/achille010/library-manager?style=flat)](https://github.com/achille010/library-manager/stargazers)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+
+</div>
+
+## Overview
+
+This repository contains a complete library management system demonstrating fundamental database design principles including foreign key relationships and referential integrity. The system manages library members, book catalogs, and loan transactions efficiently.
+
+## Database Structure
 
 The database includes three main tables:
 
-- **`members`** – Stores library member information
-- **`books`** – Stores book catalog information  
-- **`loans`** – Tracks which member borrowed which book and when
+- **members** – Stores library member information (ID, name, email, join date)
+- **books** – Stores book catalog information (ID, title, author, ISBN)
+- **loans** – Tracks borrowing history (member, book, loan date, due date, return date)
 
-## 🚀 Getting Started
+## Files
+
+```
+library-manager/
+├── schema.sql      # Database structure definitions
+├── seed.sql        # Sample data for testing
+├── queries.sql     # Common queries and examples
+├── changes.sql     # Database modifications and updates
+└── README.md       # Project documentation
+```
+
+## Getting Started
 
 ### Prerequisites
 
@@ -24,28 +44,30 @@ The database includes three main tables:
 ### Installation
 
 1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/library-database.git
-   cd library-database
-   ```
+```bash
+git clone https://github.com/achille010/library-manager.git
+cd library-manager
+```
 
-2. Import the SQL dump:
-   ```bash
-   mysql -u username -p library < lib.sql
-   ```
-   
-   *Replace `username` with your MySQL username. You'll be prompted for your password.*
+2. Create the database:
+```bash
+mysql -u username -p < schema.sql
+```
 
-3. Connect to the database:
-   ```bash
-   mysql -u username -p library
-   ```
+3. Load sample data:
+```bash
+mysql -u username -p library < seed.sql
+```
 
-## 💡 Example Queries
+4. Connect to the database:
+```bash
+mysql -u username -p library
+```
 
-Here are some useful queries to explore the database:
+## Example Queries
 
 ### View all current loans
+
 ```sql
 SELECT m.name, b.title, l.loan_date, l.due_date
 FROM loans l
@@ -55,6 +77,7 @@ WHERE l.return_date IS NULL;
 ```
 
 ### Find overdue books
+
 ```sql
 SELECT m.name, b.title, l.due_date, 
        DATEDIFF(CURDATE(), l.due_date) AS days_overdue
@@ -66,6 +89,7 @@ WHERE l.return_date IS NULL
 ```
 
 ### View borrowing history for a specific member
+
 ```sql
 SELECT b.title, l.loan_date, l.return_date
 FROM loans l
@@ -74,27 +98,66 @@ WHERE l.member_id = 1
 ORDER BY l.loan_date DESC;
 ```
 
-## ✨ Features
+### Check available books
 
-- ✅ Foreign key relationships for data integrity
-- ✅ Sample data included for testing
-- ✅ Normalized database structure
-- ✅ Ready-to-use SQL dump file
+```sql
+SELECT b.* 
+FROM books b
+LEFT JOIN loans l ON b.id = l.book_id AND l.return_date IS NULL
+WHERE l.id IS NULL;
+```
 
-## 📝 Notes
+## Features
 
-- The database includes sample data for immediate testing
-- All tables use InnoDB engine for transaction support
-- Foreign keys enforce referential integrity between tables
+- Foreign key relationships for data integrity
+- Sample data included for testing
+- Normalized database structure
+- Common queries and examples provided
+- Transaction support with InnoDB engine
 
-## 🤝 Contributing
+## Database Schema
 
-Feel free to fork this repository and submit pull requests for any improvements.
+**Members Table**
+- Primary Key: id
+- Fields: name, email, join_date
 
-## 📄 License
+**Books Table**
+- Primary Key: id
+- Fields: title, author, isbn, publication_year
 
-This project is open source and available under the [MIT License](LICENSE).
+**Loans Table**
+- Primary Key: id
+- Foreign Keys: member_id, book_id
+- Fields: loan_date, due_date, return_date
+
+## Contributing
+
+Contributions are welcome! If you'd like to improve the database schema or add new features:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Author
+
+**achille010**
+
+- GitHub: [@achille010](https://github.com/achille010)
+
+## Acknowledgments
+
+Built as a practical demonstration of database design principles and SQL fundamentals for library management systems.
 
 ---
 
-**Pro tip:** This single-file approach is perfect for small database projects. The SQL dump contains everything needed to recreate the entire database structure and data.
+<div align="center">
+
+Made with ❤️ using MySQL
+
+</div>
