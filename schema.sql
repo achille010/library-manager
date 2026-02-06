@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS authors;
 CREATE TABLE authors(
     author_id INT AUTO_INCREMENT PRIMARY KEY;
     auth_name VARCHAR(200);
-)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO authors(auth_name) VALUES (
     ('ISHYA Example'),
